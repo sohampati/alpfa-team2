@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class FirebaseService {
+public class UserService {
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private Firestore dbFireStore;
 
     public String addUser(UserDTO userDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -24,9 +22,7 @@ public class FirebaseService {
 
         if (StringUtils.isNotEmpty(userDTO.getUsername())) {
             userDTO.setUserId(userDTO.getUsername());
-
             if (isUserExists) {
-                // Merge the new user data with the existing document
                 dbFirestore.collection("Users").document(userDTO.getUserId()).set(userDTO, SetOptions.merge());
                 return "User updated successfully!";
             } else {
@@ -40,10 +36,15 @@ public class FirebaseService {
 
     public UserDTO getUser(String userId) throws Exception {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        DocumentSnapshot document = dbFirestore.collection("Users").document(userId).get().get();
-        if (document.exists()) {
+        DocumentSnapshot document;
+        try {
+            document = dbFirestore.collection("Users").document(userId).get().get();
+        } catch (InterruptedException | ExecutionException e){
+            throw new Exception("Error retrieving user from Firestore", e);}
+
+        if (document.exists())
             return document.toObject(UserDTO.class);
-        }
         return null;
     }
+
 }
