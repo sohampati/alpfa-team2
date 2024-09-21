@@ -22,11 +22,22 @@ const Navbar = () => {
           ALPFA Recruitment
         </Link>
         <div className="flex space-x-6">
+          {/* Home Button */}
+          <Link to="/home" className="text-gray-800 hover:text-blue-600">
+            Home
+          </Link>
           <Link to="/jobs-internships" className="text-gray-800 hover:text-blue-600">
             Jobs & Internships
           </Link>
+          <Link to="/job-postings" className="text-gray-800 hover:text-blue-600">
+            Job Postings
+          </Link>
           <Link to="/employer" className="text-gray-800 hover:text-blue-600">
             For Employers
+          </Link>
+          {/* Resume Upload Button */}
+          <Link to="/resume-upload" className="text-gray-800 hover:text-blue-600">
+            Resume Upload
           </Link>
         </div>
         <div className="flex items-center space-x-4">

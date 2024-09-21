@@ -24,7 +24,7 @@ const Home = () => {
               Sign Up For Free
             </button>
           ) : (
-            <button onClick={() => navigate('/jobs-internships')} className="mt-4 bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600">
+            <button onClick={() => navigate('/job-postings')} className="mt-4 bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600">
               Explore Jobs
             </button>
           )}
