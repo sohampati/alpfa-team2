@@ -15,10 +15,13 @@ def extract_text_from_docx(docx_path):
     # Extract text from the .docx file
     return docx2txt.process(docx_path)
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 import pandas as pd
 def extract_keywords_for_document(text):
     processed = prepocess_text(text)
-    vectorizer = TfidfVectorizer(stop_words='english')
+    custom_stops = ['designed', 'page', '2024', 'data', 'used']
+   
+    vectorizer = TfidfVectorizer(stop_words = 'english')
     tfidf_matrix = vectorizer.fit_transform([processed])
     feature_names = vectorizer.get_feature_names_out()
     dense = tfidf_matrix.todense()
