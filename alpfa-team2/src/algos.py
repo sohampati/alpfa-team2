@@ -12,8 +12,19 @@ def isMatch(currentSkills, totalSkills, threshold):
     if totalSkills == 0:  # Prevent division by zero
         return False
     return currentSkills / totalSkills >= threshold
+#extracts text from pdf
 
 
+#print(extract_text_from_pdf(r"C:\Users\soham\OneDrive\Desktop\Intern Search Materials\Soham_Pati_Resume.pdf"))
+#print(extract_text_from_docx(r"C:\Users\soham\OneDrive\Desktop\Intern Search Materials\Soham_Pati_Resume.docx"))
+
+
+
+
+
+
+
+ 
 
 
 
