@@ -1,10 +1,9 @@
 package com.ms.jobBuddy.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.SetOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.ms.jobBuddy.dto.UserDTO;
 import io.micrometer.common.util.StringUtils;
@@ -21,14 +20,21 @@ public class FirebaseService {
     public String addUser(UserDTO userDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentSnapshot doc = dbFirestore.collection("Users").document(userDTO.getUsername()).get().get();
-        boolean isUserExists =  doc.exists();
-        if(!isUserExists && StringUtils.isNotEmpty(userDTO.getUsername())) {
+        boolean isUserExists = doc.exists();
+
+        if (StringUtils.isNotEmpty(userDTO.getUsername())) {
             userDTO.setUserId(userDTO.getUsername());
-            dbFirestore.collection("Users").document(userDTO.getUserId()).set(userDTO);
-            return "User added successfully!";
-        }
-        else{
-            return "NA";
+
+            if (isUserExists) {
+                // Merge the new user data with the existing document
+                dbFirestore.collection("Users").document(userDTO.getUserId()).set(userDTO, SetOptions.merge());
+                return "User updated successfully!";
+            } else {
+                dbFirestore.collection("Users").document(userDTO.getUserId()).set(userDTO);
+                return "User added successfully!";
+            }
+        } else {
+            return "Invalid username.";
         }
     }
 

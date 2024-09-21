@@ -5,12 +5,11 @@ import com.ms.jobBuddy.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/firestore")
-public class FirebaseController {
+public class UserController {
 
     @Autowired
     private FirebaseService firebaseService;
@@ -24,5 +23,6 @@ public class FirebaseController {
     public UserDTO getUser(@PathVariable String userId) throws Exception {
         return firebaseService.getUser(userId);
     }
+
 }
 

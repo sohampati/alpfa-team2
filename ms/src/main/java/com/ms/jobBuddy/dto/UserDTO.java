@@ -11,7 +11,7 @@ public class UserDTO {
     private String userId;
     private String username;
     private String email;
-    private String password; // Consider hashing this
+    private String password;
     private String employerType;
     private String mobileNumber;
     private String name;
