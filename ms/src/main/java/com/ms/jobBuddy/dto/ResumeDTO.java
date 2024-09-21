@@ -3,21 +3,22 @@ package com.ms.jobBuddy.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ResumeDTO {
     private int resumeId;
     private String userId;
-    private String contactInfo;
+    private List<String> contactInfo;
     private String preferredLocation;
-    private String languages;
-    private String skills;
-    private String experience;
-    private String education;
-    private String certifications;
+    private List<String> languages;
+    private List<String> skills;
+    private List<Experience> experience;
+    private List<Education> education;
+    private List<Certifications> certifications;
     private String fileURL;
     private String parsedText;
-    private String processedDate;
-    private String keywords;
-    private String embeddingVector;
+    private List<String> keywords;
+    private List<Float> embeddingVector;
 }

@@ -1,27 +1,27 @@
 package com.ms.jobBuddy.controller;
 
 import com.ms.jobBuddy.dto.UserDTO;
-import com.ms.jobBuddy.service.FirebaseService;
+import com.ms.jobBuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/firestore")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
-    private FirebaseService firebaseService;
+    private UserService userService;
 
-    @PostMapping("/addUser")
+    @PostMapping("/add")
     public String addUser(@RequestBody UserDTO user) throws ExecutionException, InterruptedException {
-        return firebaseService.addUser(user);
+        return userService.addUser(user);
     }
 
-    @GetMapping("/getUser/{userId}")
+    @GetMapping("/get/{userId}")
     public UserDTO getUser(@PathVariable String userId) throws Exception {
-        return firebaseService.getUser(userId);
+        return userService.getUser(userId);
     }
 
 }
