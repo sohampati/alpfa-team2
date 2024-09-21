@@ -41,7 +41,6 @@ public class UserService {
             document = dbFirestore.collection("Users").document(userId).get().get();
         } catch (InterruptedException | ExecutionException e){
             throw new Exception("Error retrieving user from Firestore", e);}
-
         if (document.exists())
             return document.toObject(UserDTO.class);
         return null;
