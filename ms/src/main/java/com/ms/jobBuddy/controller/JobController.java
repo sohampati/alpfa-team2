@@ -7,14 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("/api/jobs")
 public class JobController {
 
     @Autowired
+
     private JobService jobService;
 
-    @PostMapping("/{userId}")
+    @PostMapping("/add/{userId}")
     public ResponseEntity<String> addJob(@RequestBody JobDTO jobDTO, @PathVariable String userId) {
         jobDTO.setEmployerId(userId);
         jobDTO.setJobId(123);
@@ -29,5 +33,10 @@ public class JobController {
     @GetMapping("/getJob")
     public JobDTO getJob(@RequestParam String jobId) throws Exception {
         return jobService.getJobById(jobId);
+    }
+
+    @GetMapping("/getJobsByUserId")
+    public List<JobDTO> getJobsByUserId(@RequestParam String userId) throws ExecutionException, InterruptedException {
+        return jobService.getJobsByUserId(userId);
     }
 }

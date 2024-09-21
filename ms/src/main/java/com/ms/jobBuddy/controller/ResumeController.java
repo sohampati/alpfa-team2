@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("/api/resume")
 public class ResumeController {
@@ -15,7 +18,7 @@ public class ResumeController {
     @Autowired
     private ResumeService resumeService;
 
-    @PostMapping("/{userId}")
+    @PostMapping("/add/{userId}")
     public ResponseEntity<String> addResume(@PathVariable String userId,
                                             @RequestBody ResumeDTO resumeDTO) {
         resumeDTO.setUserId(userId);
@@ -28,10 +31,10 @@ public class ResumeController {
         }
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<ResumeDTO> getResume(@PathVariable String userId) {
+    @GetMapping("/{resumeId}")
+    public ResponseEntity<ResumeDTO> getResume(@PathVariable String resumeId) {
         try {
-            ResumeDTO resume = resumeService.getResumeByUserId(userId);
+            ResumeDTO resume = resumeService.getResumeById(resumeId);
             if (resume != null) {
                 return new ResponseEntity<>(resume, HttpStatus.OK);
             } else {
@@ -40,6 +43,11 @@ public class ResumeController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/getResumesByUserId")
+    public List<ResumeDTO> getResumesByUserId(@RequestParam String userId) throws ExecutionException, InterruptedException {
+        return resumeService.getResumesByUserId(userId);
     }
 
 

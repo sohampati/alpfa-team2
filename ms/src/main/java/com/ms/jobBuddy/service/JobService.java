@@ -1,15 +1,16 @@
 package com.ms.jobBuddy.service;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.ms.jobBuddy.dto.JobDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class JobService {
@@ -45,6 +46,24 @@ public class JobService {
         } catch (Exception e) {
             throw new Exception("Error fetching job from Firebase", e);
         }
+    }
+
+    public List<JobDTO> getJobsByUserId(String userId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+        CollectionReference jobsRef = dbFirestore.collection("Jobs");
+        ApiFuture<QuerySnapshot> future = jobsRef.whereEqualTo("employerId", userId).get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        List<JobDTO> jobList = new ArrayList<>();
+
+        // Iterate through the results and map each document to a JobDTO
+        for (QueryDocumentSnapshot document : documents) {
+            JobDTO jobDTO = document.toObject(JobDTO.class);
+            jobList.add(jobDTO);
+        }
+
+        return jobList; // Return the list of JobDTOs
     }
 
 }
