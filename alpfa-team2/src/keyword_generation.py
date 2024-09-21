@@ -26,8 +26,8 @@ def extract_keywords_for_document(text):
     df_tfidf = pd.DataFrame(denselist, columns=feature_names)
 
     # Extract top keywords for the document
-    top_keywords = df_tfidf.iloc[0].nlargest(20).index.tolist()  # Get top 10 keywords
+    top_keywords = df_tfidf.iloc[0].nlargest(20).index.tolist()  # Get top 20 keywords
     return top_keywords
 
-print(extract_keywords_for_document(extract_text_from_pdf(r"C:\Users\soham\OneDrive\Desktop\Intern Search Materials\Soham_Pati_Resume.pdf")))
+print(extract_keywords_for_document(extract_text_from_docx(r"C:\Users\soham\OneDrive\Desktop\Intern Search Materials\Soham_Pati_Resume.docx")))
 
