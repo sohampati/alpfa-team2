@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios
 
 const EmployerJobPosting = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -12,30 +13,88 @@ const EmployerJobPosting = () => {
     keywords: '',
     skills: '',
     payRange: '',
-    email: '',
-    phoneNumber: '',
-    location: '', // New field for location
-    currentDate: '', // New field for current date
+    contactInfo: {
+      email: '',
+      phoneNumber: ''
+    },
+    employerId: 'User1',
+    embeddingVector: [0, 0, 0, 0],
+    jobCreationDate: new Date().toISOString()
   });
+
+  const [feedbackMessage, setFeedbackMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setJobDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+
+    if (name === 'email' || name === 'phoneNumber') {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        contactInfo: {
+          ...prevDetails.contactInfo,
+          [name]: value
+        }
+      }));
+    } else {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        [name]: value
+      }));
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Job Details:', jobDetails);
+    console.log("Submit triggered.");
+  
+    const newJob = {
+      employerId: "Employer9", // This could be dynamically set or stored in state
+      contactInfo: [jobDetails.contactInfo.email, jobDetails.contactInfo.phoneNumber],
+      jobTitle: jobDetails.jobTitle,
+      company: jobDetails.company,
+      jobDescription: jobDetails.description,
+      requiredSkills: jobDetails.skills.split(',').map(skill => skill.trim()),
+      responsibilities: jobDetails.responsibilities.split(',').map(resp => resp.trim()),
+      location: jobDetails.jobLocation,
+      salaryRange: jobDetails.payRange,
+      keywords: jobDetails.keywords.split(',').map(keyword => keyword.trim()),
+      postDate: new Date().toISOString().split('T')[0],
+      expirationDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    };
+  
+    console.log("New job details:", newJob);
+  
+    try {
+      console.log("Attempting to make POST request...");
+      const response = await axios.post('https://0b80-34-148-130-160.ngrok-free.app/upload_job', newJob, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log("API response:", response.data);
+      setFeedbackMessage('Job successfully added!');
+      
+      // Reset form fields here if needed
+    } catch (error) {
+      console.error('Error adding job:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+      setFeedbackMessage('Error adding job. Please try again.');
+    }
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 p-20 mt-100">
-      <div className="w-full max-w-3xl bg-white p-8 shadow-md rounded-lg mt-20">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-3xl bg-white p-8 shadow-md rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Create Job Posting</h2>
-        <form onSubmit={handleSubmit}>
+        {feedbackMessage && <p className="text-green-500">{feedbackMessage}</p>}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
               Job Title
@@ -66,71 +125,35 @@ const EmployerJobPosting = () => {
             />
           </div>
 
-          <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="workplaceType">
-                Workplace Type
-              </label>
-              <select
-                id="workplaceType"
-                name="workplaceType"
-                value={jobDetails.workplaceType}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-              >
-                <option value="On-site">On-site</option>
-                <option value="Remote">Remote</option>
-                <option value="Hybrid">Hybrid</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobLocation">
-                Job Location
-              </label>
-              <input
-                type="text"
-                id="jobLocation"
-                name="jobLocation"
-                value={jobDetails.jobLocation}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-          </div>
-
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="jobType">
-              Job Type
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="jobLocation">
+              Job Location
             </label>
-            <select
-              id="jobType"
-              name="jobType"
-              value={jobDetails.jobType}
+            <input
+              type="text"
+              id="jobLocation"
+              name="jobLocation"
+              value={jobDetails.jobLocation}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
-            >
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Contract">Contract</option>
-            </select>
+              required
+            />
           </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="description">
-              Description
+              Job Description
             </label>
             <textarea
               id="description"
               name="description"
               value={jobDetails.description}
               onChange={handleChange}
-              rows="6"
               className="w-full p-2 border border-gray-300 rounded"
-            ></textarea>
+              required
+            />
           </div>
 
-          {/* New Responsibilities Field */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="responsibilities">
               Responsibilities
@@ -140,15 +163,14 @@ const EmployerJobPosting = () => {
               name="responsibilities"
               value={jobDetails.responsibilities}
               onChange={handleChange}
-              rows="4"
               className="w-full p-2 border border-gray-300 rounded"
-            ></textarea>
+              placeholder="Separate responsibilities with commas"
+            />
           </div>
 
-          {/* New Keywords Field */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="keywords">
-              Keywords (comma-separated)
+              Keywords
             </label>
             <input
               type="text"
@@ -157,13 +179,13 @@ const EmployerJobPosting = () => {
               value={jobDetails.keywords}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              placeholder="e.g., Accountant, Financial Reporting"
             />
           </div>
 
-          {/* New Skills Field */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="skills">
-              Required Skills (comma-separated)
+              Required Skills
             </label>
             <input
               type="text"
@@ -172,10 +194,10 @@ const EmployerJobPosting = () => {
               value={jobDetails.skills}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              placeholder="e.g., QuickBooks, Excel"
             />
           </div>
 
-          {/* New Pay Range Field */}
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="payRange">
               Pay Range
@@ -187,73 +209,44 @@ const EmployerJobPosting = () => {
               value={jobDetails.payRange}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="e.g., $50,000 - $70,000"
+              placeholder="e.g., $60,000 - $80,000"
             />
           </div>
 
-          {/* New Location Field */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
-              Location
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
+              Contact Email
             </label>
             <input
-              type="text"
-              id="location"
-              name="location"
-              value={jobDetails.location}
+              type="email"
+              id="email"
+              name="email"
+              value={jobDetails.contactInfo.email}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              required
             />
           </div>
 
-          {/* New Current Date Field */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="currentDate">
-              Posting Date
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="phoneNumber">
+              Contact Phone Number
             </label>
             <input
-              type="date"
-              id="currentDate"
-              name="currentDate"
-              value={jobDetails.currentDate}
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={jobDetails.contactInfo.phoneNumber}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              required
             />
           </div>
-
-          <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={jobDetails.email}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="phoneNumber">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={jobDetails.phoneNumber}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-                required
-              />
-            </div>
-          </div>
-
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          <form onSubmit={handleSubmit}>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
             Submit
           </button>
         </form>

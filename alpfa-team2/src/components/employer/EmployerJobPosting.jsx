@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { db } from 'C:/Users/soham/OneDrive/Desktop/MShack/alpfa-team2/alpfa-team2/src/firebase/firebase.js'; // Adjust the path to your firebase config
-import { collection, addDoc } from 'firebase/firestore';
+import axios from 'axios'; // Import Axios
 
 const EmployerJobPosting = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -45,37 +44,48 @@ const EmployerJobPosting = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-
+    e.preventDefault();
+    console.log("Submit triggered.");
+  
     const newJob = {
-      ...jobDetails,
-      jobCreationDate: new Date().toISOString(),
+      employerId: jobDetails.employerId,
+      contactInfo: [jobDetails.contactInfo.email, jobDetails.contactInfo.phoneNumber],
+      jobTitle: jobDetails.jobTitle,
+      company: jobDetails.company,
+      jobDescription: jobDetails.description,
+      requiredSkills: jobDetails.skills.split(',').map(skill => skill.trim()),
+      responsibilities: jobDetails.responsibilities.split(',').map(resp => resp.trim()),
+      location: jobDetails.jobLocation,
+      salaryRange: jobDetails.payRange,
+      keywords: jobDetails.keywords.split(',').map(keyword => keyword.trim()),
+      postDate: new Date().toISOString().split('T')[0],
+      expirationDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     };
-
+  
+    console.log("New job details:", newJob);
+  
     try {
-      // Add the new job posting to the "Jobs" collection in Firestore
-      await addDoc(collection(db, 'Jobs'), newJob);
-      setFeedbackMessage('Job successfully added!');
-
-      // Optionally reset the form after submission
-      setJobDetails({
-        jobTitle: '',
-        company: '',
-        workplaceType: 'On-site',
-        jobLocation: '',
-        jobType: 'Full-time',
-        description: '',
-        responsibilities: '',
-        keywords: '',
-        skills: '',
-        payRange: '',
-        contactInfo: { email: '', phoneNumber: '' },
-        employerId: 'User1',
-        embeddingVector: [0, 0, 0, 0],
-        jobCreationDate: new Date().toISOString(),
+      console.log("Attempting to make POST request...");
+      const response = await axios.post('https://0b80-34-148-130-160.ngrok-free.app/upload_job', newJob, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      console.log("API response:", response.data);
+      setFeedbackMessage('Job successfully added!');
+      
+      // Reset form...
     } catch (error) {
-      console.error('Error adding job to Firestore:', error);
+      console.error('Error adding job:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
       setFeedbackMessage('Error adding job. Please try again.');
     }
   };
@@ -85,8 +95,6 @@ const EmployerJobPosting = () => {
       <div className="w-full max-w-3xl bg-white p-8 shadow-md rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Create Job Posting</h2>
         {feedbackMessage && <p className="text-green-500">{feedbackMessage}</p>}
-        {/* Form with an onSubmit handler */}
-        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
               Job Title
@@ -102,8 +110,139 @@ const EmployerJobPosting = () => {
             />
           </div>
 
-          {/* Add other input fields as necessary... */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="company">
+              Company
+            </label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={jobDetails.company}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
 
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="jobLocation">
+              Job Location
+            </label>
+            <input
+              type="text"
+              id="jobLocation"
+              name="jobLocation"
+              value={jobDetails.jobLocation}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="description">
+              Job Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={jobDetails.description}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="responsibilities">
+              Responsibilities
+            </label>
+            <textarea
+              id="responsibilities"
+              name="responsibilities"
+              value={jobDetails.responsibilities}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Separate responsibilities with commas"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="keywords">
+              Keywords
+            </label>
+            <input
+              type="text"
+              id="keywords"
+              name="keywords"
+              value={jobDetails.keywords}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="e.g., Accountant, Financial Reporting"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="skills">
+              Required Skills
+            </label>
+            <input
+              type="text"
+              id="skills"
+              name="skills"
+              value={jobDetails.skills}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="e.g., QuickBooks, Excel"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="payRange">
+              Pay Range
+            </label>
+            <input
+              type="text"
+              id="payRange"
+              name="payRange"
+              value={jobDetails.payRange}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="e.g., $60,000 - $80,000"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
+              Contact Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={jobDetails.contactInfo.email}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="phoneNumber">
+              Contact Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={jobDetails.contactInfo.phoneNumber}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <form onSubmit={handleSubmit}>
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -115,17 +254,5 @@ const EmployerJobPosting = () => {
     </div>
   );
 };
-const addTestDocument = async () => {
-  try {
-    const docRef = await addDoc(collection(db, "Jobs"), {
-      name: "Test User",
-      email: "test@example.com"
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (error) {
-    console.error("Error adding document: ", error);
-  }
-};
-addTestDocument();
 
 export default EmployerJobPosting;
