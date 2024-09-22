@@ -6,9 +6,10 @@ import EmployerCreateJob from "./components/employer/EmployerJobPosting";
 import EmployerViewJob from "./components/employer/EmployerViewJob";
 import Navbar from "./components/header/navbar"; 
 import JobPostings from "./components/job_posting/JobPostings"; 
-import ResumeUpload from "./components/resume_upload/ResumeUpload"; // Import ResumeUpload component
+import ResumeUpload from "./components/resume_upload/ResumeUpload"; 
 import { AuthProvider } from "./contexts/authContext";
 import ResumeForm from "./components/resume_form/ResumeForm";
+import UserBio from "./components/user_bio/index";
 import { useRoutes } from "react-router-dom";
 
 import './index.css';
@@ -50,12 +51,17 @@ function App() {
       element: <JobPostings />,
     },
     {
-      path: "/resume-upload",  // Add the new route for Resume Upload here
+      path: "/resume-upload",  
       element: <ResumeUpload />,
     },
     {
-      path: "/resume-form", // Add the new route for Resume Form here
+      path: "/resume-form", 
       element: <ResumeForm />,
+    },
+
+    {
+      path: "/user-bio", 
+      element: <UserBio />,
     },
   
   ];

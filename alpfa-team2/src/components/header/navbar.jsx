@@ -16,43 +16,41 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white p-4 shadow-md">
+    <nav className="bg-black p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/home" className="text-gray-600 font-semibold text-lg">
+        <Link to="/home" className="text-white font-semibold text-lg">
           ALPFA Recruitment
         </Link>
         <div className="flex space-x-6">
-          {/* Home Button */}
-          <Link to="/home" className="text-gray-800 hover:text-blue-600">
+          <Link to="/home" className="text-white hover:text-blue-300">
             Home
           </Link>
-          <Link to="/job-postings" className="text-gray-800 hover:text-blue-600">
+          <Link to="/job-postings" className="text-white hover:text-blue-300">
             Job Postings
           </Link>
-          <Link to="/employer" className="text-gray-800 hover:text-blue-600">
+          <Link to="/employer" className="text-white hover:text-blue-300">
             For Employers
           </Link>
-          {/* Resume Upload Button */}
-          <Link to="/resume-upload" className="text-gray-800 hover:text-blue-600">
+          <Link to="/resume-upload" className="text-white hover:text-blue-300">
             Resume Upload
           </Link>
         </div>
         <div className="flex items-center space-x-4">
           {currentUser ? (
             <>
-              <button onClick={handleSignOut} className="text-gray-800 hover:text-blue-600">
+              <button onClick={handleSignOut} className="text-white hover:text-blue-300">
                 Log Out
               </button>
-              <Link to="/bio" className="text-black">
+              <Link to="/user-bio" className="text-white hover:text-blue-300">
                 <FaUserCircle className="text-2xl" />
               </Link>
             </>
           ) : (
             <>
-              <button onClick={handleSignIn} className="text-gray-800 hover:text-blue-600">
+              <button onClick={handleSignIn} className="text-white hover:text-blue-300">
                 Log In
               </button>
-              <button onClick={() => navigate('/auth/signup')} className="bg-[#404040] text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-600">
+              <button onClick={() => navigate('/auth/signup')} className="bg-white text-black px-4 py-2 rounded-full shadow-md hover:bg-gray-200">
                 Sign Up
               </button>
             </>
