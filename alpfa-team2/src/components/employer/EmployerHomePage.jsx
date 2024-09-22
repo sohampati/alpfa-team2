@@ -15,6 +15,9 @@ const EmployerHomePage = () => {
         <button onClick={() => navigate('/employer-form')} className="mt-4 bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600">
           Create Job Posts
         </button>
+        <button onClick={() => navigate('/employer-view')} className="mt-4 bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600">
+          Manage Job Postings
+        </button>
       </div>
     </div>
   );

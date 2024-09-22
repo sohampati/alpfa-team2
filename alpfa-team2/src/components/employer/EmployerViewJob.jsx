@@ -8,19 +8,21 @@ const EmployerJobPosting = () => {
     jobLocation: '',
     jobType: 'Full-time',
     description: '',
-    responsibilities: '', // New field for responsibilities
-    keywords: '', // New field for keywords
-    skills: '', // New field for skills
-    payRange: '', // New field for pay range
+    responsibilities: '',
+    keywords: '',
+    skills: '',
+    payRange: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    location: '', // New field for location
+    currentDate: '', // New field for current date
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJobDetails((prevDetails) => ({
       ...prevDetails,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -30,8 +32,8 @@ const EmployerJobPosting = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-3xl bg-white p-8 shadow-md rounded-lg">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 p-20 mt-100">
+      <div className="w-full max-w-3xl bg-white p-8 shadow-md rounded-lg mt-20">
         <h2 className="text-2xl font-bold mb-4">Create Job Posting</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -186,6 +188,36 @@ const EmployerJobPosting = () => {
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
               placeholder="e.g., $50,000 - $70,000"
+            />
+          </div>
+
+          {/* New Location Field */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
+              Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={jobDetails.location}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+          </div>
+
+          {/* New Current Date Field */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2" htmlFor="currentDate">
+              Posting Date
+            </label>
+            <input
+              type="date"
+              id="currentDate"
+              name="currentDate"
+              value={jobDetails.currentDate}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
 
