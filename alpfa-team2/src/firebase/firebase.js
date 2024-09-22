@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth"; // Import GoogleAuthProvider
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,6 +14,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Export app, auth, and GoogleAuthProvider
-export { app, auth, GoogleAuthProvider };
+console.log('Firebase is connected:', app.name); // Should log "[DEFAULT]"
+
+
+export { app, auth, GoogleAuthProvider, db };
