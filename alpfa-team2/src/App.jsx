@@ -10,8 +10,8 @@ import ResumeUpload from "./components/resume_upload/ResumeUpload";
 import { AuthProvider } from "./contexts/authContext";
 import ResumeForm from "./components/resume_form/ResumeForm";
 import UserBio from "./components/user_bio/index";
+import Footer from './components/footer/index';
 import { useRoutes } from "react-router-dom";
-
 import './index.css';
 
 function App() {
@@ -36,7 +36,6 @@ function App() {
       path: "/employer",
       element: <EmployerHomePage />,
     },
-
     {
       path: "/employer-form", 
       element: <EmployerCreateJob />,
@@ -45,7 +44,6 @@ function App() {
       path: "/employer-view", 
       element: <EmployerViewJob />,
     },
-
     {
       path: "/job-postings",
       element: <JobPostings />,
@@ -58,12 +56,10 @@ function App() {
       path: "/resume-form", 
       element: <ResumeForm />,
     },
-
     {
       path: "/user-bio", 
       element: <UserBio />,
     },
-  
   ];
 
   let routesElement = useRoutes(routesArray);
@@ -71,7 +67,10 @@ function App() {
   return (
     <AuthProvider>
       <Navbar />
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      <div className="w-full min-h-screen flex flex-col">
+        <main className="flex-grow">{routesElement}</main>
+        <Footer /> {/* Ensure footer stays at the bottom */}
+      </div>
     </AuthProvider>
   );
 }
