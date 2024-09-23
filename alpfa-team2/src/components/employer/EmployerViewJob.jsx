@@ -10,13 +10,13 @@ const jobPostings = [
     location: 'San Francisco, CA',
     candidates: {
       interested: [
-        { name: 'Alice Johnson', matchScore: 95, profilePhoto: placeholderImage },
-        { name: 'Bob Smith', matchScore: 90, profilePhoto: placeholderImage }
+        { name: 'Alice Johnson', matchScore: 64, profilePhoto: placeholderImage },
+        { name: 'Bob Smith', matchScore: 79, profilePhoto: placeholderImage }
       ],
       potential: [
         { name: 'Charlie Nguyen', matchScore: 85, profilePhoto: placeholderImage },
-        { name: 'Diana Rose', matchScore: 80, profilePhoto: placeholderImage },
-        { name: 'Ethan Brown', matchScore: 78, profilePhoto: placeholderImage }
+        { name: 'Diana Rose', matchScore: 94, profilePhoto: placeholderImage },
+        { name: 'Ethan Brown', matchScore: 98, profilePhoto: placeholderImage }
       ]
     }
   },
@@ -26,13 +26,13 @@ const jobPostings = [
     location: 'New York, NY',
     candidates: {
       interested: [
-        { name: 'Lily Cooper', matchScore: 93, profilePhoto: placeholderImage },
-        { name: 'Jake Thompson', matchScore: 89, profilePhoto: placeholderImage }
+        { name: 'Lily Cooper', matchScore: 67, profilePhoto: placeholderImage },
+        { name: 'Jake Thompson', matchScore: 75, profilePhoto: placeholderImage }
       ],
       potential: [
         { name: 'Sophia Davis', matchScore: 87, profilePhoto: placeholderImage },
-        { name: 'Mia Gonzalez', matchScore: 83, profilePhoto: placeholderImage },
-        { name: 'Lucas Lee', matchScore: 81, profilePhoto: placeholderImage }
+        { name: 'Mia Gonzalez', matchScore: 90, profilePhoto: placeholderImage },
+        { name: 'Lucas Lee', matchScore: 86, profilePhoto: placeholderImage }
       ]
     }
   },
@@ -42,13 +42,13 @@ const jobPostings = [
     location: 'Chicago, IL',
     candidates: {
       interested: [
-        { name: 'Emma Clark', matchScore: 94, profilePhoto: placeholderImage },
-        { name: 'Henry Wright', matchScore: 88, profilePhoto: placeholderImage }
+        { name: 'Emma Clark', matchScore: 81, profilePhoto: placeholderImage },
+        { name: 'Henry Wright', matchScore: 83, profilePhoto: placeholderImage }
       ],
       potential: [
         { name: 'Olivia Turner', matchScore: 87, profilePhoto: placeholderImage },
-        { name: 'Noah Harris', matchScore: 85, profilePhoto: placeholderImage },
-        { name: 'Liam Martinez', matchScore: 83, profilePhoto: placeholderImage }
+        { name: 'Noah Harris', matchScore: 95, profilePhoto: placeholderImage },
+        { name: 'Liam Martinez', matchScore: 99, profilePhoto: placeholderImage }
       ]
     }
   }
