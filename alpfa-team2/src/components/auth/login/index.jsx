@@ -21,18 +21,16 @@ const Login = () => {
         }
     }
 
-    const sendEmailX = () => {
-        console.log("emailX")
+    const sendEmailX = () => {      
         emailjs.send(
-          'service_rxrk0me',   
-          'template_yezif9f',
+          'service_rxrk0me',   // EmailJS service ID
+          'template_yezif9f',  // EmailJS template ID
           {
             user_email: email,  
-            subject: "Thank You for Signing Up at JobBuddy",
-            message: "Thank you for signing up at JobBuddy! We're excited to have you on board.",
-            // user_name: "Shruti"
+            subject: "Welcome to JobBuddy – Thank You for Signing Up!",
+            message: "",
           },
-          'XrnzM_3R5vWHq7smA'    
+          'XrnzM_3R5vWHq7smA'  // EmailJS public key
         )
         .then((response) => {
           console.log('Email successfully sent!', response.status, response.text);
@@ -40,8 +38,8 @@ const Login = () => {
         .catch((err) => {
           console.error('Failed to send email:', err);
         });
-    };
-
+      };
+      
     const onGoogleSignIn = (e) => {
         e.preventDefault()
         if (!isSigningIn) {
