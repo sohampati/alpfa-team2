@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const jobRoles = [
   { id: 1, title: "Software Engineer", company: "Google", location: "Mountain View, CA", description: "Develop and maintain software solutions." },
@@ -8,13 +8,25 @@ const jobRoles = [
 ];
 
 function JobCard({ job }) {
+  const navigate = useNavigate();
+
+  const handleInterestClick = () => {
+    // You can also handle any logic here, like sending data or updating state
+    navigate('/confirmation-email');
+  };
+
   return (
     <div className="bg-white shadow-md rounded-lg p-6 max-w-xs w-full">
       <h3 className="text-xl font-semibold">{job.title}</h3>
       <p className="text-gray-700"><strong>Company:</strong> {job.company}</p>
       <p className="text-gray-700"><strong>Location:</strong> {job.location}</p>
       <p className="text-gray-600">{job.description}</p>
-      <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">I'm Interested</button>
+      <button
+        onClick={handleInterestClick}
+        className="mt-4 bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600"
+      >
+        I'm Interested
+      </button>
     </div>
   );
 }

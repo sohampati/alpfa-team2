@@ -69,7 +69,7 @@ const ResumeUpload = () => {
         const relevantData = extractRelevantFields(jsonResponse);
         console.log('Extracted relevant data:', relevantData);
         setParsedData(relevantData);
-        // navigate('/resume-form', { state: { parsedData: relevantData } }); // Navigate after parsing
+        navigate('/resume-form', { state: { parsedData: relevantData } }); // Navigate after parsing
       } catch (error) {
         console.error('Error during API call:', error);
         setError('An error occurred while processing the file. Please try again.');

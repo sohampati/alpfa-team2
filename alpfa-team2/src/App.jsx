@@ -11,6 +11,8 @@ import { AuthProvider } from "./contexts/authContext";
 import ResumeForm from "./components/resume_form/ResumeForm";
 import UserBio from "./components/user_bio/index";
 import Footer from './components/footer/index';
+import ConfirmationResumePage from "./components/confirmation/ConfirmationResumePage"
+import ConfirmationEmailPage from "./components/confirmation/ConfirmationEmailPage"
 import { useRoutes } from "react-router-dom";
 import './index.css';
 
@@ -59,6 +61,14 @@ function App() {
     {
       path: "/user-bio", 
       element: <UserBio />,
+    },
+    {
+      path: "/confirmation-resume", 
+      element: <ConfirmationResumePage />,
+    },
+    {
+      path: "/confirmation-email", 
+      element: <ConfirmationEmailPage />,
     },
   ];
 
