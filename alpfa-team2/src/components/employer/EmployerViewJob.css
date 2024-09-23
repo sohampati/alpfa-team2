@@ -1,118 +1,113 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-body {
-  background-color: #f0f4f8;
+.job-postings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
-.employer-job-postings {
-  font-family: 'Poppins', sans-serif;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
+.job-card {
+  background-color: white;
+  border: 1px solid #90caf9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.page-title {
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 2.5em;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.job-posting {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  padding: 25px;
-  margin-bottom: 40px;
-  border: 1px solid #e0e0e0;
-  transition: transform 0.3s ease;
-}
-
-.job-posting:hover {
+.job-card:hover {
   transform: translateY(-5px);
+  background-color: white;
 }
 
 .job-title {
-  color: #3498db;
-  border-bottom: 3px solid #3498db;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  font-size: 1.8em;
-}
-
-.job-details {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-}
-
-.job-description, .job-location, .job-salary {
+  color: #0d47a1;
+  font-size: 1.6em;
   margin-bottom: 10px;
-  color: #34495e;
+}
+
+.job-location {
+  font-style: italic;
+  color: #1565c0;
+  margin-bottom: 15px;
+}
+
+.job-description {
+  color: #424242;
+  margin-bottom: 20px;
   line-height: 1.6;
 }
 
-.label {
-  font-weight: 600;
-  color: #2c3e50;
-  margin-right: 5px;
+.candidates-columns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.candidates-title {
-  color: #e74c3c;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  font-size: 1.5em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.interested-column h3,
+.potential-column h3 {
+  background-color: #42a5f5;
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
 }
 
-.potential-employees {
-  list-style-type: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.candidate {
-  background-color: #ecf0f1;
+.interested-column,
+.potential-column {
+  width: 45%;
+  background-color: #e1f5fe;
   border-radius: 8px;
   padding: 15px;
-  transition: background-color 0.3s ease;
 }
 
-.candidate:hover {
-  background-color: #e0f7fa;
+.candidate-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.candidate-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.candidate-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #90caf9;
+}
+
+.candidate-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.candidate-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .candidate-name {
-  color: #16a085;
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
+  color: #1e88e5;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
-.candidate-skills {
-  margin: 0;
-  font-size: 0.9em;
-  color: #7f8c8d;
-  line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-  .employer-job-postings {
-    padding: 20px;
-  }
-
-  .potential-employees {
-    grid-template-columns: 1fr;
-  }
+.match-score {
+  color: #424242;
+  font-size: 1em;
 }

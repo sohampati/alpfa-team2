@@ -66,6 +66,7 @@ const ResumeUpload = () => {
 
         const jsonResponse = await response.json();
         setRawApiResponse(jsonResponse);
+        console.log(jsonResponse)
         const relevantData = extractRelevantFields(jsonResponse);
         console.log('Extracted relevant data:', relevantData);
         setParsedData(relevantData);
