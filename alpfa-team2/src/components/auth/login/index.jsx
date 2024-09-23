@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth'
 import { useAuth } from '../../../contexts/authContext'
+import emailjs from "emailjs-com";
 
 const Login = () => {
     const { userLoggedIn } = useAuth()
@@ -16,9 +17,30 @@ const Login = () => {
         if(!isSigningIn) {
             setIsSigningIn(true)
             await doSignInWithEmailAndPassword(email, password)
-            // doSendEmailVerification()
+            sendEmailX()
         }
     }
+
+    const sendEmailX = () => {
+        console.log("emailX")
+        emailjs.send(
+          'service_rxrk0me',   
+          'template_yezif9f',
+          {
+            user_email: email,  
+            subject: "Thank You for Signing Up at JobBuddy",
+            message: "Thank you for signing up at JobBuddy! We're excited to have you on board.",
+            // user_name: "Shruti"
+          },
+          'XrnzM_3R5vWHq7smA'    
+        )
+        .then((response) => {
+          console.log('Email successfully sent!', response.status, response.text);
+        })
+        .catch((err) => {
+          console.error('Failed to send email:', err);
+        });
+    };
 
     const onGoogleSignIn = (e) => {
         e.preventDefault()
