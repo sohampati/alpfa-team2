@@ -22,7 +22,7 @@ public class ResumeController {
     public ResponseEntity<String> addResume(@PathVariable String userId,
                                             @RequestBody ResumeDTO resumeDTO) {
         resumeDTO.setUserId(userId);
-        resumeDTO.setResumeId(123);
+        resumeDTO.setResumeId(userId);
         try {
             String result = resumeService.addResume(resumeDTO);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
@@ -48,6 +48,11 @@ public class ResumeController {
     @GetMapping("/getResumesByUserId")
     public List<ResumeDTO> getResumesByUserId(@RequestParam String userId) throws ExecutionException, InterruptedException {
         return resumeService.getResumesByUserId(userId);
+    }
+
+    @GetMapping("/getMatchingJDs")
+    public List<String>getJDs(@RequestParam String userId) throws Exception {
+        return resumeService.matchResumeToJob(userId);
     }
 
 

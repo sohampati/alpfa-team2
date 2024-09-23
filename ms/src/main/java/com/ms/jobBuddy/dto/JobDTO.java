@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class JobDTO {
-    private int jobId;
+    private String jobId;
     private String employerId;
     private List<String> contactInfo;
     private String jobTitle;

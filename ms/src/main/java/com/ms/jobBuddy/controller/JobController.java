@@ -21,7 +21,6 @@ public class JobController {
     @PostMapping("/add/{userId}")
     public ResponseEntity<String> addJob(@RequestBody JobDTO jobDTO, @PathVariable String userId) {
         jobDTO.setEmployerId(userId);
-        jobDTO.setJobId(123);
         try {
             String result = jobService.addJob(jobDTO);
             return new ResponseEntity<>(result, HttpStatus.OK);

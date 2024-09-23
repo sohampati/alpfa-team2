@@ -7,12 +7,15 @@ import com.ms.jobBuddy.dto.ResumeDTO;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.stylesheets.LinkStyle;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class ResumeService {
+    private static Map<String, List<String>> jobIdSkillsCache = new HashMap<>();
+
 
     public String addResume(ResumeDTO resumeDTO) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -33,6 +36,32 @@ public class ResumeService {
         return null; // Or throw an exception as needed
     }
 
+    public List<String> matchResumeToJob(String id) throws Exception {
+        List<String> result = new ArrayList<>();
+        ResumeDTO candidate = getResumeById(id);
+        jobIdSkillsCache.forEach((jobId, skills) ->{
+            if(calculateMatchScore(candidate.getSkills(), skills)){
+                result.add(jobId);
+            }
+        });
+        return result;
+    }
+
+    public static boolean calculateMatchScore(List<String> candidateSkills, List<String> jobSkills) {
+        Set<String> candidateSkillSet = new HashSet<>(candidateSkills);
+        Set<String> jobSkillSet = new HashSet<>(jobSkills);
+
+        int matchCount = 0;
+
+        // Count exact matches
+        for (String skill : jobSkillSet) {
+            if (candidateSkillSet.contains(skill)) {
+                matchCount++;
+            }
+        }
+
+        return (double) matchCount / jobSkills.size() * 100 >= 60;
+    }
     public List<ResumeDTO> getResumesByUserId(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         CollectionReference resumesRef = dbFirestore.collection("Resumes");
@@ -46,5 +75,26 @@ public class ResumeService {
         }
 
         return resumeList; // Return the list of ResumeDTOs
+    }
+
+    @PostConstruct
+    private void getJobsDataFromDB() throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+
+        // Retrieve data
+        ApiFuture<QuerySnapshot> query = db.collection("Jobs").get();
+        List<QueryDocumentSnapshot> documents = query.get().getDocuments();
+        jobIdSkillsCache = documents.stream()
+                .collect(Collectors.toMap(
+                        doc -> doc.getData().get("jobId").toString(), // Key
+                       doc ->{ List<String> skills = (List<String>) doc.getData().get("requiredSkills");
+        return skills != null ? new ArrayList<>(skills) : new ArrayList<>();
+    }, // Value
+            (existingSkills, newSkills) -> {
+        existingSkills.addAll(newSkills); // Combine lists
+        return existingSkills;
+    }
+                ));
+        int i = 0;
     }
 }

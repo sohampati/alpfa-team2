@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ResumeDTO {
-    private int resumeId;
+    private String resumeId;
     private String userId;
     private List<String> contactInfo;
     private String preferredLocation;
