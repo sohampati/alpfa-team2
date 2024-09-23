@@ -20,11 +20,11 @@ const Home = () => {
             </p>
           )}
           {!currentUser ? (
-            <button onClick={() => navigate('/auth/signup')} className="bg-gray-400 text-black px-6 py-2 rounded-full hover:bg-gray-500 mx-auto lg:mx-0">
+            <button onClick={() => navigate('/auth/signup')} className="bg-blue-400 text-black px-6 py-2 rounded-full hover:bg-blue-500 mx-auto lg:mx-0">
               Sign Up For Free
             </button>
           ) : (
-            <button onClick={() => navigate('/job-postings')} className="mt-4 bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 mx-auto lg:mx-0">
+            <button onClick={() => navigate('/job-postings')} className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 mx-auto lg:mx-0">
               Explore Jobs
             </button>
           )}

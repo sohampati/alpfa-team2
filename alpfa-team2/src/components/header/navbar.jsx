@@ -42,7 +42,9 @@ const Navbar = () => {
                 Log Out
               </button>
               <Link to="/user-bio" className="text-white hover:text-blue-300">
-                <FaUserCircle className="text-2xl" />
+                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-300">
+                  <FaUserCircle className="text-3xl text-white" />
+                </div>
               </Link>
             </>
           ) : (

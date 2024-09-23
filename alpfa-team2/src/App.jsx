@@ -13,6 +13,7 @@ import UserBio from "./components/user_bio/index";
 import Footer from './components/footer/index';
 import ConfirmationResumePage from "./components/confirmation/ConfirmationResumePage"
 import ConfirmationEmailPage from "./components/confirmation/ConfirmationEmailPage"
+import ConfirmationJobListing from "./components/confirmation/ConfirmationJobListing";
 import { useRoutes } from "react-router-dom";
 import './index.css';
 
@@ -69,6 +70,10 @@ function App() {
     {
       path: "/confirmation-email", 
       element: <ConfirmationEmailPage />,
+    },
+    {
+      path: "/confirmation-job-listing", 
+      element: <ConfirmationJobListing />,
     },
   ];
 

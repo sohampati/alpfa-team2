@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom';
 
 const EmployerJobPosting = () => {
+  const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useState({
     jobTitle: '',
     company: '',
@@ -95,7 +97,7 @@ const EmployerJobPosting = () => {
       <div className="flex-grow bg-gray-100 py-6">
         <div className="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-2xl font-semibold mb-6">Create Job Posting</h1>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
                 Job Title
@@ -242,16 +244,13 @@ const EmployerJobPosting = () => {
                 required
               />
             </div>
-            
-            <button
-              type="submit"
-              className="w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
+
+            <button onClick={() => navigate('/confirmation-job-listing')} className="w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Submit
             </button>
           </form>
           {feedbackMessage && (
-            <div className="mt-4 text-center text-sm font-medium text-green-600">
+            <div className="mt-4 text-center text-sm font-medium text-blue-600">
               {feedbackMessage}
             </div>
           )}

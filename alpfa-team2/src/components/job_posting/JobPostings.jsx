@@ -33,8 +33,8 @@ function JobCard({ job }) {
 
 function JobPostings() {
   return (
-    <div className="w-full bg-gray-100 min-h-screen p-8">
-      <header className="flex items-center justify-between bg-blue-600 text-white p-6 rounded-lg shadow-md">
+    <div className="w-full min-h-screen bg-gray-200 p-8">
+      <header className="flex items-center justify-between bg-blue-500 text-white p-6 rounded-lg shadow-md">
         <Link to="/">
           <img src="/alpfa-logo.png" alt="ALPFA Logo" className="h-12" />
         </Link>
@@ -42,7 +42,7 @@ function JobPostings() {
       </header>
 
       <main className="mt-8">
-        <h2 className="text-3xl font-bold mb-6">Job Opportunities</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">Job Opportunities</h2>
         <div className="flex flex-wrap justify-center gap-6">
           {jobRoles.map((job) => (
             <JobCard key={job.id} job={job} />

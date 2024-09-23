@@ -81,7 +81,7 @@ const ResumeUpload = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 to-red-200">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Upload Your Resume</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
