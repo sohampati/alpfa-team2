@@ -1,0 +1,113 @@
+.job-postings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.job-card {
+  background-color: white;
+  border: 1px solid #90caf9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  background-color: white;
+}
+
+.job-title {
+  color: #0d47a1;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.job-location {
+  font-style: italic;
+  color: #1565c0;
+  margin-bottom: 15px;
+}
+
+.job-description {
+  color: #424242;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.candidates-columns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.interested-column h3,
+.potential-column h3 {
+  background-color: #42a5f5;
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.interested-column,
+.potential-column {
+  width: 45%;
+  background-color: #e1f5fe;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.candidate-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.candidate-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.candidate-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #90caf9;
+}
+
+.candidate-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.candidate-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.candidate-name {
+  color: #1e88e5;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.match-score {
+  color: #424242;
+  font-size: 1em;
+}
