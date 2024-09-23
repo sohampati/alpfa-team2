@@ -10,3 +10,13 @@ JobBuddy is a project aimed at connecting candidates with job opportunities usin
 - **Job Matching**: Similarly, it ranks job descriptions for each candidate.
 - **Cosine Similarity**: Utilizes cosine similarity to evaluate the compatibility between resumes and job descriptions.
 
+## Project Structure
+
+- **ms/**: This folder contains the Java Spring backend that integrates with Firebase for data management and storage.
+- **alpha-team2/**: This folder features the React and Vue.js frontend, providing a dynamic user interface for the JobBuddy application.
+- **bert_tokenizer/**: This folder includes the Python script for generating embeddings using the BERT tokenizer, essential for processing text data in the application.
+
+### Technologies Used
+- **Backend**: Java Spring, Firebase
+- **Frontend**: React, Vue.js
+- **Text Processing**: BERT Tokenizer (Python)
