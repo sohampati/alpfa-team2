@@ -1,5 +1,5 @@
 # JobBuddy
-
+## 2nd Place in Morgan Stanley's Code to Give Hackathon
 ## Overview
 JobBuddy is a project aimed at connecting candidates with job opportunities using advanced machine learning techniques. The system analyzes resumes and job descriptions to provide intelligent matching based on similarity scores.
 
